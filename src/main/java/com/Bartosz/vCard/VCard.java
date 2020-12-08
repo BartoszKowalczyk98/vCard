@@ -17,6 +17,9 @@ import java.util.List;
 
 @RestController
 public class VCard {
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView index() {return new ModelAndView("index", "SearchItem", new SearchItem()); }
+
 	//https://panoramafirm.pl/szukaj?k=hydraulik&l=
 	@RequestMapping(value = "/getjobs", method = RequestMethod.GET)
 	public void getJobs(@RequestParam("k") String searchitem) {
