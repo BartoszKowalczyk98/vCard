@@ -3,7 +3,12 @@ Spring project to get data from user to look for company offers based on input p
  process retrieved data. Then present that data and allow user to generate vCard of that company.
  
  Still work in progress, for now only part that works is retrieving data from site and parsing it from Json using
-  Gson library.
+  Gson library. Example api endpoint input:
+  ```
+/getjobs?k=<input_phrase_here>
+```
+and it will return list of objects of type DataFromJson
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 

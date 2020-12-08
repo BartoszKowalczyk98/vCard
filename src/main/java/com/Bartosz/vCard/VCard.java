@@ -22,15 +22,16 @@ public class VCard {
 
 	//https://panoramafirm.pl/szukaj?k=hydraulik&l=
 	@RequestMapping(value = "/getjobs", method = RequestMethod.GET)
-	public void getJobs(@RequestParam("k") String searchitem) {
+	public List<DataFromJson> getJobs(@RequestParam("k") String searchitem) {
 		//jsoup beginners guide taken from https://jsoup.org/cookbook/input/load-document-from-url
+		List<DataFromJson> listOfOffers = new ArrayList<>();
+
 		try {
 			StringBuilder stringBuilder = new StringBuilder();
 			stringBuilder.append("https://panoramafirm.pl/szukaj?k=").append(searchitem).append("&l=");
 			Document doc = Jsoup.connect(stringBuilder.toString()).get();
 			Elements jsons = doc.select("script");
 			Gson gson = new Gson();
-			List<DataFromJson> listOfOffers = new ArrayList<>();
 
 			for (Element element : jsons) {
 				if (element.attr("type").equals("application/ld+json") && element.data().contains("LocalBusiness")) {
@@ -41,6 +42,7 @@ public class VCard {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return listOfOffers;
 	}
 
 }
