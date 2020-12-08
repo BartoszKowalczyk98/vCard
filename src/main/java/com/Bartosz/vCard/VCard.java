@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 public class VCard {
 	//https://panoramafirm.pl/szukaj?k=hydraulik&l=
-	@RequestMapping(value = "/getjobs",method = RequestMethod.GET)
+	@RequestMapping(value = "/getjobs", method = RequestMethod.GET)
 	public void getJobs(@RequestParam("k") String searchitem) {
 		//jsoup beginners guide taken from https://jsoup.org/cookbook/input/load-document-from-url
 		try {
@@ -29,9 +29,9 @@ public class VCard {
 			List<DataFromJson> listOfOffers = new ArrayList<>();
 
 			for (Element element : jsons) {
-				if (element.attr("type").equals("application/ld+json") && element.data().contains("LocalBusiness")){
+				if (element.attr("type").equals("application/ld+json") && element.data().contains("LocalBusiness")) {
 
-					DataFromJson singleCompanyInfo = gson.fromJson(element.data(),DataFromJson.class);
+					DataFromJson singleCompanyInfo = gson.fromJson(element.data(), DataFromJson.class);
 					listOfOffers.add(singleCompanyInfo);
 				}
 			}
