@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,17 +31,13 @@ public class VCard {
 
 			for (Element element : jsons) {
 				if (element.attr("type").equals("application/ld+json") && element.data().contains("LocalBusiness")) {
-
 					DataFromJson singleCompanyInfo = gson.fromJson(element.data(), DataFromJson.class);
 					listOfOffers.add(singleCompanyInfo);
 				}
 			}
-
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }

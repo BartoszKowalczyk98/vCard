@@ -9,6 +9,34 @@ public class DataFromJson {
 	String url;
 	Address address;
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setSameas(String sameas) {
+		this.sameas = sameas;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	public String getName() {
 		return name;
 	}
