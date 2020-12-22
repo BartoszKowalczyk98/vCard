@@ -31,10 +31,6 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return "Address{" +
-				"streetAddress='" + streetAddress + '\'' +
-				", addressLocality='" + addressLocality + '\'' +
-				", addressCountry='" + addressCountry + '\'' +
-				'}';
+		return streetAddress + " " + addressLocality + " " + addressCountry;
 	}
 }
