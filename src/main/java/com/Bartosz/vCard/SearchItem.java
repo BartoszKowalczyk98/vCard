@@ -1,22 +1,22 @@
 package com.Bartosz.vCard;
 
 public class SearchItem {
-	private String job;
-	private String localization;
+	private String k;
+	private String l;
 
-	public void setJob(String job) {
-		this.job = job;
+	public void setK(String k) {
+		this.k = k;
 	}
 
-	public void setLocalization(String localization) {
-		this.localization = localization;
+	public void setL(String l) {
+		this.l = l;
 	}
 
-	public String getJob() {
-		return job;
+	public String getK() {
+		return k;
 	}
 
-	public String getLocalization() {
-		return localization;
+	public String getL() {
+		return l;
 	}
 }
