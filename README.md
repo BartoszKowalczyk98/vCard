@@ -1,14 +1,37 @@
-# Getting Started
+# Read me first
 Spring project to get data from user to look for company offers based on input phrase or localization, and then
  process retrieved data. Then present that data and allow user to generate vCard of that company.
- 
- Still work in progress, for now only part that works is retrieving data from site and parsing it from Json using
-  Gson library. Example api endpoint input:
-  ```
-/getjobs?k=<input_phrase_here>
-```
-and it will return list of objects of type DataFromJson
 
+```
+http://localhost:8080/
+```
+Will lead user basic input site with 2 input boxes, and after clicking button named "szukaj" it will forward a
+ request to /search endpoint with two form fields:
+ * k - field of work where user searches a specialist
+ * l - localization where one should be found
+
+Program will then search all possiblities form 1st page of https://panoramafirm.pl/ and retrieve data of all
+ companies and present user with scrollable list. Every position in that list has a button that allows generating a
+  .vcf file and download it to local machine.
+  Lastly endpoint /generate-vcard takes following form parameters:  
+ * name - name of company
+ * telephone - phone number of company
+ * email - email address of chosen company
+ * url - link to site if company has one
+ * addressAsString - whole local address of company headquarters
+ 
+ 
+# Example .vcf file content
+```
+BEGIN:VCARD
+VERSION:4.0
+ORG:Bartosz Kowalczyk
+TEL:123456789
+ADR: Kowalska 1/2 Boat PL
+EMAIL:biuro@test.com.pl
+URL:http://test.com.pl
+END:VCARD
+```
 ### Reference Documentation
 For further reference, please consider the following sections:
 
