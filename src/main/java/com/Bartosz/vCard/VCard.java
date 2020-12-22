@@ -5,7 +5,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +44,39 @@ public class VCard {
 		request.getRequestDispatcher("/WEB-INF/jsp/results.jsp").forward(request, response);
 
 	}
-
+	@RequestMapping(value = "/generate-vcard", method = RequestMethod.POST)
+	public ResponseEntity<Resource> generatevCard(@ModelAttribute("vcardinfo") DataFromJson dataFromJson,
+												  BindingResult result,
+												  ModelMap map)
+			throws IOException {
+		File file = new File("vcard.vcf");
+		FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
+		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+		bufferedWriter.write("BEGIN:VCARD\r\n");
+		bufferedWriter.write("VERSION:4.0\r\n");
+		if (dataFromJson.getName() != "") {
+			bufferedWriter.write("ORG:" + dataFromJson.getName() + "\r\n");
+		}
+		if (dataFromJson.getTelephone() != "") {
+			bufferedWriter.write("TEL:" + dataFromJson.getTelephone() + "\r\n");
+		}
+		if (dataFromJson.getAddressAsString() != "") {
+			bufferedWriter.write("ADR:" + dataFromJson.getAddressAsString() + "\r\n");
+		}
+		if (dataFromJson.getEmail() != "") {
+			bufferedWriter.write("EMAIL:" + dataFromJson.getEmail() + "\r\n");
+		}
+		if (dataFromJson.getUrl() != "") {
+			bufferedWriter.write("URL:" + dataFromJson.getUrl() + "\r\n");
+		}
+		bufferedWriter.write("END:VCARD");
+		bufferedWriter.close();
+		Resource fileSystemResource = new FileSystemResource(file);
+		return ResponseEntity
+				.ok()
+				.contentType(MediaType.parseMediaType("text/vcard"))
+				.body(fileSystemResource);
+	}
 	//https://panoramafirm.pl/szukaj?k=hydraulik&l=
 	public List<DataFromJson> getJobs(String searchitem, String localization) {
 		//jsoup beginners guide taken from https://jsoup.org/cookbook/input/load-document-from-url
