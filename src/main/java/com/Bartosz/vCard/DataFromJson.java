@@ -5,9 +5,14 @@ public class DataFromJson {
 	String image;
 	String telephone;
 	String email;
-	String sameas;
+	String sameAs;
 	String url;
 	Address address;
+	String addressAsString;
+
+	public void setAddressAsString(String addressAsString) {
+		this.addressAsString = addressAsString;
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -25,9 +30,10 @@ public class DataFromJson {
 		this.email = email;
 	}
 
-	public void setSameas(String sameas) {
-		this.sameas = sameas;
+	public void setSameAs(String sameAs) {
+		this.sameAs = sameAs;
 	}
+
 
 	public void setUrl(String url) {
 		this.url = url;
@@ -37,8 +43,18 @@ public class DataFromJson {
 		this.address = address;
 	}
 
+	public String getAddressAsString() {
+		if (addressAsString != null) {
+			return addressAsString;
+		}
+		return "";
+	}
+
 	public String getName() {
-		return name;
+		if (name != null) {
+			return name;
+		}
+		return "";
 	}
 
 	public String getImage() {
@@ -46,19 +62,31 @@ public class DataFromJson {
 	}
 
 	public String getTelephone() {
-		return telephone;
+		if (telephone != null) {
+			return telephone;
+		}
+		return "";
 	}
 
 	public String getEmail() {
-		return email;
+		if (email != null) {
+			return email;
+		}
+		return "";
 	}
 
-	public String getSameas() {
-		return sameas;
+	public String getSameAs() {
+		if (sameAs != null) {
+			return sameAs;
+		}
+		return "";
 	}
 
 	public String getUrl() {
-		return url;
+		if (url != null) {
+			return url;
+		}
+		return "";
 	}
 
 	public Address getAddress() {
@@ -67,14 +95,31 @@ public class DataFromJson {
 
 	@Override
 	public String toString() {
-		return "DataFromJson{" +
-				"name='" + name + '\'' +
-				", image='" + image + '\'' +
-				", telephone='" + telephone + '\'' +
-				", email='" + email + '\'' +
-				", sameas='" + sameas + '\'' +
-				", url='" + url + '\'' +
-				", address=" + address.toString() +
-				'}';
+		StringBuilder stringBuilder = new StringBuilder();
+		if (name != null) {
+			stringBuilder.append(name).append(" ");
+		}
+		if (email != null) {
+			stringBuilder.append(email).append(" ");
+		}
+		if (telephone != null) {
+			stringBuilder.append(telephone).append(" ");
+		}
+		if (sameAs != null) {
+			stringBuilder.append(sameAs).append(" ");
+		}
+		if (url != null) {
+			stringBuilder.append(url).append(" ");
+		}
+		if (image != null) {
+			stringBuilder.append(image).append(" ");
+		}
+		if (address != null) {
+			stringBuilder.append(address.toString());
+		}
+
+
+		return stringBuilder.toString();
 	}
+
 }
