@@ -5,11 +5,18 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.http.MediaType;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +26,16 @@ public class VCard {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index() {
 		return new ModelAndView("index", "index", new SearchItem());
+	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE + "; " +
+			"charset=utf-8")
+	public void showCards(@ModelAttribute("results") SearchItem searchItem, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<DataFromJson> listOfOffers = getJobs(searchItem.getK(), searchItem.getL());
+
+		request.setAttribute("listOfOffers", listOfOffers);
+		request.setAttribute("vcardinfo", new DataFromJson());
+
 	}
 
 	//https://panoramafirm.pl/szukaj?k=hydraulik&l=
