@@ -35,6 +35,7 @@ public class VCard {
 
 		request.setAttribute("listOfOffers", listOfOffers);
 		request.setAttribute("vcardinfo", new DataFromJson());
+		request.getRequestDispatcher("/WEB-INF/jsp/results.jsp").forward(request, response);
 
 	}
 
